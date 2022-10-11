@@ -9,33 +9,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CiaoControllerTest {
 
- @Autowired
- MockMvc mockMvc;
+public class AdminControllerTest {
 
- @Test
- void shouldReturn_Unauthorized_When_RequestWithoutLogin() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.get("/api/ciao"))
-            .andExpect(status().isUnauthorized());
+    @Autowired
+    MockMvc mockMvc;
+
+    @Test
+    @WithMockUser(username = "Ilker", password = "test1234", roles = "admin")
+    void shouldReturn_Welcome_When_RequestWithLoginAsAdmin() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/admin"))
+                .andExpect(status().isOk());
 
 
- }
-
-
- @Test
- @WithMockUser(username = "Ilker", password = "123456")
- void shouldReturn_Ciao_When_RequestWithoutLogin() throws Exception{
-  mockMvc.perform(MockMvcRequestBuilders.get("/api/ciao"))
-          .andExpect(status().isOk())
-          .andExpect(content().string("Ciao!"));
-
- }
-
+    }
 
 }

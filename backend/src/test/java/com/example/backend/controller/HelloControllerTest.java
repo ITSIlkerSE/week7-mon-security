@@ -9,33 +9,32 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CiaoControllerTest {
 
- @Autowired
- MockMvc mockMvc;
+public class HelloControllerTest {
 
- @Test
- void shouldReturn_Unauthorized_When_RequestWithoutLogin() throws Exception {
-    mockMvc.perform(MockMvcRequestBuilders.get("/api/ciao"))
-            .andExpect(status().isUnauthorized());
+    @Autowired
+    MockMvc mockMvc;
 
-
- }
+    @Test
+    void shouldReturn_Hello_When_RequestWithoutLogin() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/hello"))
+                .andExpect(status().isOk());
 
 
- @Test
- @WithMockUser(username = "Ilker", password = "123456")
- void shouldReturn_Ciao_When_RequestWithoutLogin() throws Exception{
-  mockMvc.perform(MockMvcRequestBuilders.get("/api/ciao"))
-          .andExpect(status().isOk())
-          .andExpect(content().string("Ciao!"));
+    }
 
- }
+    @Test
+    @WithMockUser(username = "Ilker", password = "test1234")
+    void shouldReturn_Hello_When_RequestWithLogin() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/hello"))
+                .andExpect(status().isOk());
+
+
+    }
 
 
 }
