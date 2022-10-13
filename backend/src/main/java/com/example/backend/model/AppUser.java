@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class AppUser {
 
     @Id
-    private String userName;
+    private String username;
 
     private String passwordHash;
 }

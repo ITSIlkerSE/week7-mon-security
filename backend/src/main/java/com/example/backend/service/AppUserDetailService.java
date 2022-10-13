@@ -25,9 +25,9 @@ public class AppUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = appUserRepository.findById(username)
                 .orElse(null);
-        if(user == null){
+        if (user == null) {
             return null;
         }
-        return new User(user.getUserName(),  user.getPasswordHash(), Collections.emptyList());
+        return new User(user.getUsername(), user.getPasswordHash(), Collections.emptyList());
     }
 }
