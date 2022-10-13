@@ -8,7 +8,10 @@ function App() {
 
     const [password, setPassword] = useState("")
     const [username, setUsername] = useState("")
+    const [newPassword, setNewPassword] = useState("")
+    const [newUsername, setNewUsername] = useState("")
     const [me, setMe] = useState("")
+
 
     function fetchWelcomeMessage() {
         axios.get("/api/hello")
@@ -28,6 +31,16 @@ function App() {
             .catch(() => alert("Das Passwort war falsch!"))
     }
 
+    function handleRegister() {
+        axios.post("api/user/register", {
+            username: newUsername,
+            password: newPassword })
+            .then(response => response.data)
+            .then((data) => setMe(data))
+            .then(() => setNewUsername(""))
+            .then(() => setNewPassword(""))
+    }
+
     function handleLogout() {
         axios.get("api/user/logout")
             .then(() => setMe(""))
@@ -43,6 +56,11 @@ function App() {
                         <input value={username} onChange={event => setUsername(event.target.value)}/>
                         <input type="password" value={password} onChange={event => setPassword(event.target.value)}/>
                         <button onClick={handleLogin}>Login</button>
+                        <h3>Register Account</h3>
+                        <input value={newUsername} onChange={event => setNewUsername(event.target.value)}/>
+                        <input type="password" value={newPassword}
+                               onChange={event => setNewPassword(event.target.value)}/>
+                        <button onClick={handleRegister}>Sign up!</button>
 
                     </>
                     : <>
@@ -54,12 +72,6 @@ function App() {
 
                     </>
                 }
-
-
-
-
-
-
 
 
             </header>

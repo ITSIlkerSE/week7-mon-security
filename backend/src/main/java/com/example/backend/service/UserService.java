@@ -27,6 +27,15 @@ public class UserService {
 
     public String register(CreateUserDto createUserDto) {
 
+       boolean userExistsAlready = userRepo.existsById(createUserDto.getUsername());
+       if(userExistsAlready){
+           try {
+               throw new Exception ("User with your chosen username exists already!");
+           } catch (Exception e) {
+               throw new RuntimeException(e);
+           }
+       }
+
         String hashPassword = passwordEncoder.encode(createUserDto.getPassword());
 
         AppUser appUser = new AppUser();
