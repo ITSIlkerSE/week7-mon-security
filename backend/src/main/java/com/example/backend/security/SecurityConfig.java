@@ -30,10 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/hello").permitAll()
                 .antMatchers("/api/user/login").permitAll()
                 .antMatchers("/api/user/").permitAll()
+                .antMatchers("/api/user/register/").permitAll()
                 .antMatchers("/api/vipUser/*").authenticated()
                 .antMatchers("/api/ciao").authenticated()
                 .antMatchers("/api/admin").hasRole("admin")
-                .and().httpBasic();
+                .and().httpBasic()
+                .and().csrf().disable();
     }
 
     @Override
