@@ -21,7 +21,7 @@ public class AdminControllerTest {
 
     @Test
     @WithMockUser(username = "Ilker", password = "test1234", roles = "admin")
-    void shouldReturn_Welcome_When_RequestWithLoginAsAdmin() throws Exception {
+    void shouldReturn_WelcomeAdmin_When_RequestWithLoginAsAdmin_WithRole_Admin() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/admin"))
                 .andExpect(status().isOk());
 
